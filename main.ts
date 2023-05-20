@@ -6,15 +6,15 @@ if (argsLength !== 1) {
 }
 
 const originalText: string = Deno.args[0];
-console.log(`変換前：${originalText}`);
+console.log(`Original Text：${originalText}`);
 
 const matchWords = originalText.match(/\{([^}]+)\}/g); // {hoge} を取得し配列に
 const targets = [...new Set(matchWords)]; // 重複排除
 
 const words: Array<string> = [];
 targets.forEach(target => {
-    console.log(`${target}に入れる文字列を入力してください。`);
-    const userInput = prompt("入力してください: ") || ''; // 文字列の型パズルのため、空文字を入れておく
+    console.log(`What do you convert ${target} to?`);
+    const userInput = prompt("Please input : ") || ''; // 文字列の型パズルのため、空文字を入れておく
     words.push(userInput);
 });
 
@@ -28,4 +28,5 @@ words.forEach((word, index) => {
     result = result.replace(regex, word);
 });
 
-console.log(`変換後：${result}`);
+console.log('Finished! To use result, Please copy next line.');
+console.log(result);
