@@ -8,7 +8,7 @@ if (argsLength !== 1) {
 const originalText: string = Deno.args[0];
 console.log(`Original Text：${originalText}`);
 
-const matchWords = originalText.match(/\{([^}]+)\}/g); // {hoge} を取得し配列に
+const matchWords = originalText.match(/\${([^}]+)}/g); // ${hoge} を取得し配列に
 const targets = [...new Set(matchWords)]; // 重複排除
 
 const words: Array<string> = [];
@@ -22,11 +22,11 @@ let result: string = originalText; // 元の文字をコピー
 words.forEach((word, index) => {
     // RegExpインスタンスにしないと上手く動かなかった
     const pattern = targets[index];
-    const flags = "g";
-    const regex = new RegExp(pattern, flags);
+    
+    const regex = new RegExp('\\' + pattern, "g"); // ${hoge} の $をエスケープする
 
     result = result.replace(regex, word);
 });
 
-console.log('Finished! To use result, Please copy next line.');
+console.log('Finished! To use result, Please copy next line.\n');
 console.log(result);
